@@ -1,8 +1,14 @@
-// Learn more about F# at http://fsharp.org
+open Saturn
+open Giraffe
+open APFS.Server
 
-open System
+let appRouter = router {
+    forward "/admin" AdminRoutes.Router
+    get "/" (text "Hello World!")
+}
 
-[<EntryPoint>]
-let main argv =
-    printfn "Hello World from F#!"
-    0 // return an integer exit code
+let app = application {
+    use_router appRouter
+}
+
+run app
